@@ -1,4 +1,5 @@
 TRAPS_FILE="data/rattraps.csv"
+OUTPUT_FILE="data/ratraps_position.csv"
 GPX_FILE="data/gps_waypoints.gpx"
 
 TRAPS_ID="Trap.ID"
@@ -31,18 +32,24 @@ def trap_id(row):
     return trap_id[len(trap_line):]
 
 waypoints = build_waypoint_dict(gpx_data.waypoints)
-print(waypoints.keys())
-print(len(waypoints.keys()))
 
-with open(TRAPS_FILE) as csv_file:
-    reader = csv.reader(csv_file)
-    for index, line in enumerate(reader):
-        if index == 0: continue
+input_csv = open(TRAPS_FILE)
+ouput_csv = open(OUTPUT_FILE, 'w', newline='')
 
-        id = trap_id(line)
-        if not id in waypoints:
-            print("Couldn't find a waypoint for", id)
-            continue
-        # print(id, waypoints[id])
-# track = get_track(gpx_data)
-# print(track)
+reader = csv.reader(input_csv)
+writer = csv.writer(ouput_csv)
+
+for index, line in enumerate(reader):
+    if index == 0:
+        writer.writerow([*line, 'sanitized_id', 'latitude', 'longitude', 'gps_elevation'])
+        continue
+
+    id = trap_id(line)
+    if not id in waypoints:
+        print("Couldn't find a waypoint for trap #", id)
+        continue
+
+    waypoint = waypoints[id]
+    writer.writerow([*line,id,waypoint.latitude,waypoint.longitude,waypoint.elevation])
+input_csv.close()
+ouput_csv.close()
