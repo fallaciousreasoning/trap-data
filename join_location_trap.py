@@ -2,9 +2,6 @@ TRAPS_FILE="data/rattraps.csv"
 OUTPUT_FILE="data/ratraps_position.csv"
 GPX_FILE="data/gps_waypoints.gpx"
 
-TRAPS_ID="Trap.ID"
-GPX_TRACK_NAME="Holly Craigie traps GPS waypoints 8June20 waypoints"
-
 import gpxpy
 import csv
 
