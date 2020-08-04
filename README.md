@@ -25,3 +25,13 @@
 The output file latitudes/longitudes are in the EPSG:4326 projection.
 
 They can be imported into the QGIS project (make sure you set the CRS to EPSG:4326) via `Layer -> Add Layer -> Add Delimited Text Layer`.
+
+The data should look something like this:
+
+![Output](images/traps-topo.png)
+
+or
+
+![Output](images/traps-osm.png)
+
+Depending on whether OpenStreetMaps or LINZ is the base layer.
