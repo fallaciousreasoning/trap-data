@@ -12,7 +12,13 @@ gpx_data = gpxpy.parse(open(GPX_FILE, 'r'))
 def build_waypoint_dict(waypoints):
     result = {}
     for waypoint in waypoints:
-        name = waypoint.name.upper().strip('0')
+        name = waypoint.name.upper().lstrip('0')
+
+        if name[0] == "B":
+            name = name[1:]
+            if name in result:
+                print(f"Encountered duplicate key {name} (one had that B prefix)")
+                continue
         # Note: Some names have leading letters. However, removing them results
         # in duplicates, so not sure how to treat them yet :/
         result[name] = waypoint
@@ -25,6 +31,8 @@ def trap_id(row):
     return trap_id[len(trap_line):]
 
 waypoints = build_waypoint_dict(gpx_data.waypoints)
+print(waypoints.keys())
+print(len(waypoints.keys()))
 
 with open(TRAPS_FILE) as csv_file:
     reader = csv.reader(csv_file)
@@ -35,6 +43,6 @@ with open(TRAPS_FILE) as csv_file:
         if not id in waypoints:
             print("Couldn't find a waypoint for", id)
             continue
-        print(id, waypoints[id])
+        # print(id, waypoints[id])
 # track = get_track(gpx_data)
 # print(track)
