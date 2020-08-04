@@ -46,7 +46,7 @@ for index, line in enumerate(reader):
 
     id = trap_id(line)
     if not id in waypoints:
-        print("Couldn't find a waypoint for trap #", id)
+        print(f"Couldn't find a waypoint for trap #{id}")
         continue
 
     waypoint = waypoints[id]
