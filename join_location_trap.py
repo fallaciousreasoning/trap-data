@@ -26,6 +26,9 @@ def trap_id(row):
     trap_line = row[1]
     trap_id = row[2]
 
+    # The trap id is currently of the form "{trap_line}{trap_id}", so we strip
+    # off however many characters are in trap_line from the start.
+    # DTF100 --> 100
     return trap_id[len(trap_line):]
 
 waypoints = build_waypoint_dict(gpx_data.waypoints)
@@ -38,11 +41,13 @@ writer = csv.writer(ouput_csv)
 
 for index, line in enumerate(reader):
     if index == 0:
+        # Write the new header row.
         writer.writerow([*line, 'sanitized_id', 'latitude', 'longitude', 'gps_elevation'])
         continue
 
     id = trap_id(line)
     if not id in waypoints:
+        # We couldn't find a matching waypoint. Log it and carry on.
         print(f"Couldn't find a waypoint for trap #{id}")
         continue
 
@@ -50,3 +55,5 @@ for index, line in enumerate(reader):
     writer.writerow([*line,id,waypoint.latitude,waypoint.longitude,waypoint.elevation])
 input_csv.close()
 ouput_csv.close()
+
+print(f"Wrote the new data to {OUTPUT_FILE}")
