@@ -19,3 +19,9 @@
     This will generate a new file `data/rattraps_position.csv`, containing the trap data and their position. You can do this every time you change the rattraps.csv file to get up to date data.
 
 > Note: On Linux/MacOS you may need to run python3 and pip3 instead of python and pip.
+
+## Output
+
+The output file latitudes/longitudes are in the EPSG:4326 projection.
+
+They can be imported into the QGIS project (make sure you set the CRS to EPSG:4326) via `Layer -> Add Layer -> Add Delimited Text Layer`.
