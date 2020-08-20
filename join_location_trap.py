@@ -16,7 +16,6 @@ def build_waypoint_dict(waypoints):
             name = name[1:]
             if name in result:
                 print(f"Encountered duplicate key {name} (one had that B prefix)")
-                continue
         # Note: Some names have leading letters. However, removing them results
         # in duplicates, so not sure how to treat them yet :/
         result[name] = waypoint
