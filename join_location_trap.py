@@ -47,7 +47,7 @@ for index, line in enumerate(reader):
     id = trap_id(line)
     if not id in waypoints:
         # We couldn't find a matching waypoint. Log it and carry on.
-        print(f"Couldn't find a waypoint for trap #{id}")
+        print(f"Couldn't find a waypoint for trap #{id} data/ratraps.csv:{index+1}")
         continue
 
     waypoint = waypoints[id]
